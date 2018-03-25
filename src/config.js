@@ -18,8 +18,8 @@ export let DB = {
   host: 'localhost', // 服务器地址
   port: 3306, // 数据库端口号
   username: 'admin', // 数据库用户名
-  password: 'admin888', // 数据库密码
-  database: 'development', // 数据库名称
+  password: '123456', // 数据库密码
+  database: 'EH', // 数据库名称
   prefix: 'api_' // 默认"api_"
 }
 
