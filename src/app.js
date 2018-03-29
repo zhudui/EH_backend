@@ -5,7 +5,7 @@ import {
   System as SystemConfig
 } from './config'
 import path from 'path'
-import MainRoutes from './routes/main-routes'
+import userRoutes from './routes/user'
 import ErrorRoutesCatch from './middleware/ErrorRoutesCatch'
 import ErrorRoutes from './routes/error-routes'
 import jwt from 'koa-jwt'
@@ -43,8 +43,8 @@ app
     textLimit: '10mb'
   })) // Processing request
   // .use(PluginLoader(SystemConfig.System_plugin_path))
-  .use(MainRoutes.routes())
-  .use(MainRoutes.allowedMethods())
+  .use(userRoutes.routes())
+  .use(userRoutes.allowedMethods())
   .use(ErrorRoutes())
 
 if (env === 'development') { // logger

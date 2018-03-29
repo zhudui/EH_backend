@@ -1,4 +1,5 @@
 import path from 'path'
+import fs from 'fs'
 
 // 系统配置
 export let System = {
@@ -17,7 +18,7 @@ export let System = {
 export let DB = {
   host: 'localhost', // 服务器地址
   port: 3306, // 数据库端口号
-  username: 'admin', // 数据库用户名
+  username: 'root', // 数据库用户名
   password: '123456', // 数据库密码
   database: 'EH', // 数据库名称
   prefix: 'api_' // 默认"api_"
@@ -29,3 +30,5 @@ export let SendEmail = {
   password: 'password', // 邮箱密码
   sender_address: '"XX平台 👥" <postmaster@abcd.com>'
 }
+
+export const publicKey = fs.readFileSync(path.join(__dirname, '../publicKey.pub'));
