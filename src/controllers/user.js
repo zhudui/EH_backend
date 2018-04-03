@@ -4,15 +4,18 @@ import jwt from 'jsonwebtoken'
 
 export default {
   async login(ctx) {
-    const { body } = ctx.request;
     try {
+      const { body } = ctx.request;
       const data = await userService.login(body.username, body.password);
       if (data.code === 0) { // 登陆成功
         // 设置cookie
         ctx.cookies.set(
           'token',
           jwt.sign({
-            data: data.user.id
+            data: {
+              id: data.user.id,
+              role: data.user.role
+            }
           }, publicKey, {
             // 设置token过期时间为1天
             expiresIn: '24h'
@@ -40,7 +43,7 @@ export default {
 
   async getUserInfo(ctx) {
     try {
-      const userId = ctx.state.jwtData.data;
+      const userId = ctx.state.jwtData.data.id;
       const data = await userService.getUserInfoById(userId);
       if (data.code === 0) {
         ctx.body = {
@@ -71,6 +74,69 @@ export default {
       );
       ctx.body = {
         code: 0
+      }
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
+  },
+
+  async addUser(ctx) {
+    try {
+      const { body } = ctx.request;
+      const data = await userService.addUser(body);
+      console.log('data', data);
+      ctx.body = data;
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
+  },
+
+  async getAllUser(ctx) {
+    try {
+      if (ctx.state.jwtData.data.role !== 'admin') {
+        ctx.status = 401;
+      } else {
+        const data = await userService.getAllUser();
+        ctx.body = {
+          code: 0,
+          userList: data
+        }
+      }
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
+  },
+
+  async editUserByAdmin(ctx) {
+    try {
+      if (ctx.state.jwtData.data.role !== 'admin') {
+        ctx.status = 401;
+      } else {
+        const { body } = ctx.request;
+        await userService.editUserByAdmin(body);
+        ctx.body = {
+          code: 0
+        }
+      }
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
+  },
+
+  async deleteUser(ctx) {
+    try {
+      if (ctx.state.jwtData.data.role !== 'admin') {
+        ctx.status = 401;
+      } else {
+        const { body } = ctx.request;
+        await userService.deleteUserByUsername(body.username);
+        ctx.body = {
+          code: 0
+        }
       }
     } catch (err) {
       ctx.status = 500;

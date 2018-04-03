@@ -4,7 +4,6 @@ import sequelize from '../lib/sequelize'
 const userModel = sequelize.define('user', {
   id: {
     type: Sequelize.INTEGER,
-    allowNull: false,
     unique: true,
     primaryKey: true
   },
@@ -17,12 +16,11 @@ const userModel = sequelize.define('user', {
     allowNull: false
   },
   password: {
-    type: Sequelize.STRING(32),
+    type: Sequelize.STRING(255),
     allowNull: false
   },
   email: {
-    type: Sequelize.STRING(48),
-    allowNull: true
+    type: Sequelize.STRING(48)
   },
   role: {
     type: Sequelize.STRING(20),
