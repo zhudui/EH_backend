@@ -1,29 +1,30 @@
 import Sequelize from 'sequelize'
 import sequelize from '../lib/sequelize'
 
-const userModel = sequelize.define('user', {
+const homeworkModel = sequelize.define('homework', {
   id: {
     type: Sequelize.BIGINT(20),
     unique: true,
     primaryKey: true
   },
-  username: {
-    type: Sequelize.STRING(20),
+  name: {
+    type: Sequelize.STRING(48),
     allowNull: false
   },
-  fullname: {
-    type: Sequelize.STRING(20),
+  description: {
+    type: Sequelize.STRING(2000),
     allowNull: false
   },
-  password: {
-    type: Sequelize.STRING(255),
+  classId: {
+    type: Sequelize.BIGINT(20),
     allowNull: false
   },
-  email: {
-    type: Sequelize.STRING(48)
+  startTime: {
+    type: Sequelize.DATE,
+    allowNull: false
   },
-  role: {
-    type: Sequelize.STRING(20),
+  endTime: {
+    type: Sequelize.DATE,
     allowNull: false
   }
 }, {
@@ -31,4 +32,4 @@ const userModel = sequelize.define('user', {
   freezeTableName: true
 });
 
-export default userModel
+export default homeworkModel

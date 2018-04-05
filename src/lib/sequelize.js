@@ -12,6 +12,7 @@ export default new Sequelize(DBConfig.database, DBConfig.username, DBConfig.pass
     bigNumberStrings: true
   },
   operatorsAliases: {
+    $in: Op.in,
     $and: Op.and,
     $or: Op.or,
     $eq: Op.eq,
