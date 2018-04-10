@@ -10,6 +10,8 @@ import path from 'path'
 import userRoutes from './routes/user'
 import classRoutes from './routes/class'
 import homeworkRoutes from './routes/homework'
+import uploadRoutes from './routes/upload'
+import reviewRoutes from './routes/review'
 
 import ErrorRoutesCatch from './middleware/ErrorRoutesCatch'
 import ErrorRoutes from './routes/error-routes'
@@ -51,6 +53,8 @@ app
   .use(userRoutes.routes(), userRoutes.allowedMethods())
   .use(classRoutes.routes(), classRoutes.allowedMethods())
   .use(homeworkRoutes.routes(), homeworkRoutes.allowedMethods())
+  .use(uploadRoutes.routes(), uploadRoutes.allowedMethods())
+  .use(reviewRoutes.routes(), reviewRoutes.allowedMethods())
   .use(ErrorRoutes())
 
 if (env === 'development') { // logger

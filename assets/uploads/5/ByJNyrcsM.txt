@@ -1,0 +1,1 @@
+box-sizing为border-box时，如果padding或border不为0，则即使设置width或height为0也不能使元素消失

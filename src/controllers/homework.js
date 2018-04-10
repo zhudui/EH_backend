@@ -13,5 +13,33 @@ export default {
       ctx.status = 500;
       ctx.throw(new Error(err));
     }
+  },
+
+  async getHomeworkList(ctx) {
+    try {
+      const { classId } = ctx.query;
+      const homeworkList = await homeworkService.getHomeworkList(classId);
+      ctx.body = {
+        code: 0,
+        homeworkList: homeworkList
+      }
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
+  },
+
+  async getHomeworkNameList(ctx) {
+    try {
+      const { classId } = ctx.query;
+      const homeworkNameList = await homeworkService.getHomeworkNameList(classId);
+      ctx.body = {
+        code: 0,
+        homeworkNameList: homeworkNameList
+      }
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
   }
 }

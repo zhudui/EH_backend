@@ -9,5 +9,30 @@ export default {
     } catch (err) {
       throw new Error(err);
     }
+  },
+
+  async getHomeworkList(classId) {
+    try {
+      return await homeworkModel.findAll({
+        where: {
+          classId: classId
+        }
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+
+  async getHomeworkNameList(classId) {
+    try {
+      return await homeworkModel.findAll({
+        attributes: ['id', 'name'],
+        where: {
+          classId: classId
+        }
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 }

@@ -142,5 +142,62 @@ export default {
       ctx.status = 500;
       ctx.throw(new Error(err));
     }
+  },
+
+  async getClassUserList(ctx) {
+    try {
+      if (ctx.state.jwtData.data.role !== 'teacher' && ctx.state.jwtData.data.role !== 'ta') {
+        ctx.status = 401;
+      } else {
+        const { classId, onlyStudent } = ctx.query;
+        const classUserList = await userService.getClassUserList(classId, onlyStudent);
+        ctx.body = {
+          code: 0,
+          classUserList: classUserList
+        }
+      }
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
+  },
+
+  async addClassUser(ctx) {
+    try {
+      const { body } = ctx.request;
+      const data = await userService.addClassUser(body);
+      ctx.body = data;
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
+  },
+
+  async deleteUserClass(ctx) {
+    try {
+      const { body } = ctx.request;
+      await userService.deleteUserClass(body);
+      ctx.body = {
+        code: 0
+      }
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
+  },
+
+  async getUploadUserList(ctx) {
+    try {
+      const { body } = ctx.request;
+      const data = await userService.getUploadUserList(body);
+      ctx.body = {
+        code: 0,
+        uploads: data.uploads,
+        userList: data.userList
+      }
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
   }
 }

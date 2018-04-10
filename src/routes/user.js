@@ -12,5 +12,9 @@ router.post('/login', userController.login)
   .get('/getAllUser', userController.getAllUser)
   .post('/editUserByAdmin', userController.editUserByAdmin)
   .delete('/user', userController.deleteUser)
+  .get('/classUserList', userController.getClassUserList)
+  .post('/addClassUser', userController.addClassUser)
+  .delete('/userClass', userController.deleteUserClass)
+  .post('/getUploadUserList', userController.getUploadUserList)
 
 export default router

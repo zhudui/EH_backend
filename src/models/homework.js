@@ -20,11 +20,11 @@ const homeworkModel = sequelize.define('homework', {
     allowNull: false
   },
   startTime: {
-    type: Sequelize.DATE,
+    type: Sequelize.STRING(48),
     allowNull: false
   },
   endTime: {
-    type: Sequelize.DATE,
+    type: Sequelize.STRING(48),
     allowNull: false
   }
 }, {

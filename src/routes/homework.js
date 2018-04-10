@@ -6,5 +6,7 @@ const router = new KoaRouter();
 router.prefix('/api');
 
 router.post('/addHomework', homeworkController.addHomework)
+  .get('/homeworkList', homeworkController.getHomeworkList)
+  .get('/homeworkNameList', homeworkController.getHomeworkNameList)
 
 export default router

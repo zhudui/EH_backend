@@ -1,4 +1,6 @@
 import userModel from '../models/user'
+import userClassModel from '../models/userClass'
+import uploadModel from '../models/upload'
 import sequelize from '../lib/sequelize'
 import bcrypt from 'bcrypt'
 
@@ -91,6 +93,101 @@ export default {
   async deleteUserByUsername(username) {
     try {
       await userModel.destroy({ where: { username: username } });
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+
+  async getClassUserList(classId, onlyStudent) {
+    try {
+      const userIds = await userClassModel.findAll({
+        attributes: ['userId'],
+        where: {
+          classId: classId
+        }
+      });
+      console.log('userIds', userIds);
+      if (onlyStudent) {
+        return await userModel.findAll({
+          attributes: { exclude: ['password'] },
+          where: {
+            id: {
+              $in: userIds.map(data => data.userId)
+            },
+            role: 'student'
+          }
+        });
+      }
+      return await userModel.findAll({
+        attributes: { exclude: ['password'] },
+        where: {
+          id: {
+            $in: userIds.map(data => data.userId)
+          }
+        }
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+
+  async addClassUser(data) {
+    try {
+      const foundUser = await userModel.find({ where: { username: data.username } });
+      if (!foundUser) {
+        return {
+          code: 1,
+          msg: '用户名不存在，请重新输入或联系管理员添加用户'
+        }
+      } else {
+        console.log('foundUser', foundUser);
+        await userClassModel.create({
+          userId: foundUser.id,
+          classId: data.classId
+        });
+        return {
+          code: 0,
+          classUser: foundUser
+        }
+      }
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+
+  async deleteUserClass(data) {
+    try {
+      await userClassModel.destroy({
+        where: {
+          userId: data.userId,
+          classId: data.classId
+        }
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+
+  async getUploadUserList(homework) {
+    try {
+      const uploads = await uploadModel.findAll({
+        attributes: ['userId', 'filePath'],
+        where: {
+          homeworkId: homework.homeworkId
+        }
+      });
+      const userList = await userModel.findAll({
+        attributes: ['id', 'username', 'fullname'],
+        where: {
+          id: {
+            $in: uploads.map(data => data.userId)
+          }
+        }
+      });
+      return {
+        uploads: uploads,
+        userList: userList
+      }
     } catch (err) {
       throw new Error(err);
     }
