@@ -7,5 +7,6 @@ router.prefix('/api');
 
 router.post('/addClass', classController.addClass)
   .get('/classList', classController.getClassList)
+  .get('/className', classController.getClassName)
 
 export default router

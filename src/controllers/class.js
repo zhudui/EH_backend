@@ -28,5 +28,19 @@ export default {
       ctx.status = 500;
       ctx.throw(new Error(err));
     }
+  },
+
+  async getClassName(ctx) {
+    try {
+      const { classId } = ctx.query;
+      const classData = await classService.getClassName(classId);
+      ctx.body = {
+        code: 0,
+        classData: classData
+      }
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
   }
 }

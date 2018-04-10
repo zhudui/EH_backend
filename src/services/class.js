@@ -34,5 +34,18 @@ export default {
     } catch (err) {
       throw new Error(err);
     }
+  },
+
+  async getClassName(classId) {
+    try {
+      return await classModel.find({
+        attributes: ['name'],
+        where: {
+          id: classId
+        }
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 }
