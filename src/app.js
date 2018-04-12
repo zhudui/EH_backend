@@ -8,7 +8,7 @@ import path from 'path'
 
 // router
 import userRoutes from './routes/user'
-import classRoutes from './routes/class'
+import courseRoutes from './routes/course'
 import homeworkRoutes from './routes/homework'
 import uploadRoutes from './routes/upload'
 import reviewRoutes from './routes/review'
@@ -51,7 +51,7 @@ app
   })) // Processing request
   // .use(PluginLoader(SystemConfig.System_plugin_path))
   .use(userRoutes.routes(), userRoutes.allowedMethods())
-  .use(classRoutes.routes(), classRoutes.allowedMethods())
+  .use(courseRoutes.routes(), courseRoutes.allowedMethods())
   .use(homeworkRoutes.routes(), homeworkRoutes.allowedMethods())
   .use(uploadRoutes.routes(), uploadRoutes.allowedMethods())
   .use(reviewRoutes.routes(), reviewRoutes.allowedMethods())

@@ -15,7 +15,7 @@ const homeworkModel = sequelize.define('homework', {
     type: Sequelize.STRING(2000),
     allowNull: false
   },
-  classId: {
+  courseId: {
     type: Sequelize.BIGINT(20),
     allowNull: false
   },

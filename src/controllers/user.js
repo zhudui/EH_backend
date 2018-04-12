@@ -144,16 +144,16 @@ export default {
     }
   },
 
-  async getClassUserList(ctx) {
+  async getCourseUserList(ctx) {
     try {
       if (ctx.state.jwtData.data.role !== 'teacher' && ctx.state.jwtData.data.role !== 'ta') {
         ctx.status = 401;
       } else {
-        const { classId, onlyStudent } = ctx.query;
-        const classUserList = await userService.getClassUserList(classId, onlyStudent);
+        const { courseId, onlyStudent } = ctx.query;
+        const courseUserList = await userService.getCourseUserList(courseId, onlyStudent);
         ctx.body = {
           code: 0,
-          classUserList: classUserList
+          courseUserList: courseUserList
         }
       }
     } catch (err) {
@@ -162,10 +162,10 @@ export default {
     }
   },
 
-  async addClassUser(ctx) {
+  async addCourseUser(ctx) {
     try {
       const { body } = ctx.request;
-      const data = await userService.addClassUser(body);
+      const data = await userService.addCourseUser(body);
       ctx.body = data;
     } catch (err) {
       ctx.status = 500;
@@ -173,10 +173,10 @@ export default {
     }
   },
 
-  async deleteUserClass(ctx) {
+  async deleteUserCourse(ctx) {
     try {
       const { body } = ctx.request;
-      await userService.deleteUserClass(body);
+      await userService.deleteUserCourse(body);
       ctx.body = {
         code: 0
       }

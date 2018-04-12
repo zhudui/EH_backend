@@ -39,10 +39,10 @@ export default {
     }
   },
 
-  async getClassReviewData(ctx) {
+  async getCourseReviewData(ctx) {
     try {
-      const { classId } = ctx.query;
-      const reviewData = await reviewService.getClassReviewData(classId);
+      const { courseId } = ctx.query;
+      const reviewData = await reviewService.getCourseReviewData(courseId);
       ctx.body = {
         code: 0,
         reviewData: reviewData

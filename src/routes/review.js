@@ -8,6 +8,6 @@ router.prefix('/api');
 router.post('/getReviewList', reviewController.getReviewList)
   .post('/addReview', reviewController.addReview)
   .post('/getReview', reviewController.getReview)
-  .get('/classReviewData', reviewController.getClassReviewData)
+  .get('/courseReviewData', reviewController.getCourseReviewData)
 
 export default router

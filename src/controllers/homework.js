@@ -17,8 +17,8 @@ export default {
 
   async getHomeworkList(ctx) {
     try {
-      const { classId } = ctx.query;
-      const homeworkList = await homeworkService.getHomeworkList(classId);
+      const { courseId } = ctx.query;
+      const homeworkList = await homeworkService.getHomeworkList(courseId);
       ctx.body = {
         code: 0,
         homeworkList: homeworkList
@@ -31,8 +31,8 @@ export default {
 
   async getHomeworkNameList(ctx) {
     try {
-      const { classId } = ctx.query;
-      const homeworkNameList = await homeworkService.getHomeworkNameList(classId);
+      const { courseId } = ctx.query;
+      const homeworkNameList = await homeworkService.getHomeworkNameList(courseId);
       ctx.body = {
         code: 0,
         homeworkNameList: homeworkNameList

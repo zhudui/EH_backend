@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'
 import sequelize from '../lib/sequelize'
 
-const classModel = sequelize.define('class', {
+const courseModel = sequelize.define('course', {
   id: {
     type: Sequelize.BIGINT(20),
     unique: true,
@@ -20,4 +20,4 @@ const classModel = sequelize.define('class', {
   freezeTableName: true
 });
 
-export default classModel
+export default courseModel

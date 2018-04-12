@@ -65,12 +65,12 @@ export default {
     }
   },
 
-  async getClassReviewData(classId) {
+  async getCourseReviewData(courseId) {
     try {
       const homeworkList = await homeworkModel.findAll({
         attributes: ['id', 'name'],
         where: {
-          classId: classId
+          courseId: courseId
         }
       });
       console.log('homeworkList', homeworkList);

@@ -1,14 +1,14 @@
-import classService from '../services/class'
+import courseService from '../services/course'
 
 export default {
-  async addClass(ctx) {
+  async addCourse(ctx) {
     try {
       const { body } = ctx.request;
       const userId = ctx.state.jwtData.data.id;
-      const data = await classService.addClass(body, userId);
+      const data = await courseService.addCourse(body, userId);
       ctx.body = {
         code: 0,
-        classData: data
+        courseData: data
       };
     } catch (err) {
       ctx.status = 500;
@@ -16,13 +16,13 @@ export default {
     }
   },
 
-  async getClassList(ctx) {
+  async getCourseList(ctx) {
     try {
       const userId = ctx.state.jwtData.data.id;
-      const classList = await classService.getClassList(userId);
+      const courseList = await courseService.getCourseList(userId);
       ctx.body = {
         code: 0,
-        classList: classList
+        courseList: courseList
       };
     } catch (err) {
       ctx.status = 500;
@@ -30,13 +30,13 @@ export default {
     }
   },
 
-  async getClassName(ctx) {
+  async getCourseName(ctx) {
     try {
-      const { classId } = ctx.query;
-      const classData = await classService.getClassName(classId);
+      const { courseId } = ctx.query;
+      const courseData = await courseService.getCourseName(courseId);
       ctx.body = {
         code: 0,
-        classData: classData
+        courseData: courseData
       }
     } catch (err) {
       ctx.status = 500;

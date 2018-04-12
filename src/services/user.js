@@ -1,5 +1,5 @@
 import userModel from '../models/user'
-import userClassModel from '../models/userClass'
+import userCourseModel from '../models/userCourse'
 import uploadModel from '../models/upload'
 import sequelize from '../lib/sequelize'
 import bcrypt from 'bcrypt'
@@ -98,12 +98,12 @@ export default {
     }
   },
 
-  async getClassUserList(classId, onlyStudent) {
+  async getCourseUserList(courseId, onlyStudent) {
     try {
-      const userIds = await userClassModel.findAll({
+      const userIds = await userCourseModel.findAll({
         attributes: ['userId'],
         where: {
-          classId: classId
+          courseId: courseId
         }
       });
       console.log('userIds', userIds);
@@ -131,7 +131,7 @@ export default {
     }
   },
 
-  async addClassUser(data) {
+  async addCourseUser(data) {
     try {
       const foundUser = await userModel.find({ where: { username: data.username } });
       if (!foundUser) {
@@ -141,13 +141,13 @@ export default {
         }
       } else {
         console.log('foundUser', foundUser);
-        await userClassModel.create({
+        await userCourseModel.create({
           userId: foundUser.id,
-          classId: data.classId
+          courseId: data.courseId
         });
         return {
           code: 0,
-          classUser: foundUser
+          courseUser: foundUser
         }
       }
     } catch (err) {
@@ -155,12 +155,12 @@ export default {
     }
   },
 
-  async deleteUserClass(data) {
+  async deleteUserCourse(data) {
     try {
-      await userClassModel.destroy({
+      await userCourseModel.destroy({
         where: {
           userId: data.userId,
-          classId: data.classId
+          courseId: data.courseId
         }
       });
     } catch (err) {

@@ -11,11 +11,11 @@ export default {
     }
   },
 
-  async getHomeworkList(classId) {
+  async getHomeworkList(courseId) {
     try {
       return await homeworkModel.findAll({
         where: {
-          classId: classId
+          courseId: courseId
         }
       });
     } catch (err) {
@@ -23,12 +23,12 @@ export default {
     }
   },
 
-  async getHomeworkNameList(classId) {
+  async getHomeworkNameList(courseId) {
     try {
       return await homeworkModel.findAll({
         attributes: ['id', 'name'],
         where: {
-          classId: classId
+          courseId: courseId
         }
       });
     } catch (err) {
