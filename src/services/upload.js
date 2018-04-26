@@ -40,12 +40,24 @@ export default {
 
   async getFilePath(data) {
     try {
-      const foundUpload = await uploadModel.find({
-        where: {
-          homeworkId: data.homeworkId,
-          userId: data.userId
-        }
-      });
+      let foundUpload;
+      if (data.isTfile) {
+        foundUpload = await uploadModel.find({
+          where: {
+            homeworkId: data.homeworkId,
+            userRole: {
+              $in: ['teacher', 'ta']
+            }
+          }
+        })
+      } else {
+        foundUpload = await uploadModel.find({
+          where: {
+            homeworkId: data.homeworkId,
+            userId: data.userId
+          }
+        });
+      }
       if (foundUpload) {
         return {
           code: 0,
@@ -54,7 +66,7 @@ export default {
       } else {
         return {
           code: 1,
-          msg: '你尚未提交作业，请先提交作业'
+          msg: '未找到作业'
         }
       }
     } catch (err) {

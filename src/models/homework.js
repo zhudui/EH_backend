@@ -5,15 +5,15 @@ const homeworkModel = sequelize.define('homework', {
   id: {
     type: Sequelize.BIGINT(20),
     unique: true,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true
   },
   name: {
     type: Sequelize.STRING(48),
     allowNull: false
   },
   description: {
-    type: Sequelize.STRING(2000),
-    allowNull: false
+    type: Sequelize.STRING(2000)
   },
   courseId: {
     type: Sequelize.BIGINT(20),
@@ -26,6 +26,9 @@ const homeworkModel = sequelize.define('homework', {
   endTime: {
     type: Sequelize.STRING(48),
     allowNull: false
+  },
+  filePath: {
+    type: Sequelize.STRING(256)
   }
 }, {
   timestamps: false,

@@ -5,7 +5,8 @@ const userModel = sequelize.define('user', {
   id: {
     type: Sequelize.BIGINT(20),
     unique: true,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true
   },
   username: {
     type: Sequelize.STRING(20),

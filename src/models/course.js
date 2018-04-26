@@ -5,7 +5,8 @@ const courseModel = sequelize.define('course', {
   id: {
     type: Sequelize.BIGINT(20),
     unique: true,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true
   },
   name: {
     type: Sequelize.STRING(128),

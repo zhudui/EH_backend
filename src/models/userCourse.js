@@ -11,6 +11,9 @@ const userCourseModel = sequelize.define('user_course', {
     type: Sequelize.BIGINT(20),
     allowNull: false,
     primaryKey: true
+  },
+  userRole: {
+    type: Sequelize.STRING(20)
   }
 }, {
   timestamps: false,

@@ -29,7 +29,7 @@ app
     if (ctx.request.header.host.split(':')[0] === 'localhost' || ctx.request.header.host.split(':')[0] === '127.0.0.1') {
       ctx.set('Access-Control-Allow-Origin', '*')
     } else {
-      ctx.set('Access-Control-Allow-Origin', SystemConfig.HTTP_server_host)
+      ctx.set('Access-Control-Allow-Origin', '*') // 允许所有访问
     }
     ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
     ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
@@ -38,7 +38,8 @@ app
   })
   .use(ErrorRoutesCatch())
   .use(KoaStatic('assets', path.resolve(__dirname, '../assets'))) // Static resource
-  .use(jwt({ secret: publicKey, cookie: 'token', key: 'jwtData' }).unless({ path: [/^\/public|\/api\/login|\/assets/] }))
+  .use(jwt({ secret: publicKey, cookie: 'token', key: 'jwtData' })
+    .unless({ path: [/^\/public|\/api\/login|\/assets/] }))
   .use(KoaBody({
     multipart: true,
     strict: false,
@@ -48,7 +49,7 @@ app
     jsonLimit: '10mb',
     formLimit: '10mb',
     textLimit: '10mb'
-  })) // Processing request
+  }))
   // .use(PluginLoader(SystemConfig.System_plugin_path))
   .use(userRoutes.routes(), userRoutes.allowedMethods())
   .use(courseRoutes.routes(), courseRoutes.allowedMethods())
@@ -59,9 +60,9 @@ app
 
 if (env === 'development') { // logger
   app.use((ctx, next) => {
-    const start = new Date()
+    const start = new Date();
     return next().then(() => {
-      const ms = new Date() - start
+      const ms = new Date() - start;
       console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
     })
   })

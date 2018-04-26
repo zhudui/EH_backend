@@ -8,5 +8,6 @@ router.prefix('/api');
 router.post('/addHomework', homeworkController.addHomework)
   .get('/homeworkList', homeworkController.getHomeworkList)
   .get('/homeworkNameList', homeworkController.getHomeworkNameList)
+  .get('/homeworkName', homeworkController.getHomeworkName)
 
 export default router

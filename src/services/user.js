@@ -143,7 +143,8 @@ export default {
         console.log('foundUser', foundUser);
         await userCourseModel.create({
           userId: foundUser.id,
-          courseId: data.courseId
+          courseId: data.courseId,
+          userRole: foundUser.role === 'teacher' || foundUser.role === 'ta' ? foundUser.role : null
         });
         return {
           code: 0,

@@ -2,13 +2,14 @@ import courseModel from '../models/course'
 import userCourseModel from '../models/userCourse'
 
 export default {
-  async addCourse(courseData, userId) {
+  async addCourse(courseData, userId, userRole) {
     try {
       let data = await courseModel.create(courseData);
-      data.id = data.null;
+      console.log('data', data);
       await userCourseModel.create({
         userId: userId,
-        courseId: data.null
+        courseId: data.id,
+        userRole: userRole
       });
       return data;
     } catch (err) {

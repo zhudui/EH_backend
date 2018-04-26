@@ -13,6 +13,7 @@ export default new Sequelize(DBConfig.database, DBConfig.username, DBConfig.pass
   },
   operatorsAliases: {
     $in: Op.in,
+    $notIn: Op.notIn,
     $and: Op.and,
     $or: Op.or,
     $eq: Op.eq,

@@ -62,6 +62,9 @@ export default {
         homeworkId: homeworkId,
         userId: ctx.state.jwtData.data.id,
         filePath: '/assets/uploads/' + homeworkId + '/' + filename
+      };
+      if (ctx.state.jwtData.data.role === 'teacher' || ctx.state.jwtData.data.role === 'ta') {
+        data.userRole = ctx.state.jwtData.data.role;
       }
       const oldFilePath = await uploadService.findOldFile(data.homeworkId, data.userId);
       // 如果该用户在该作业以前有提交过，删除该提交

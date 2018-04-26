@@ -18,10 +18,12 @@ export default {
   async getHomeworkList(ctx) {
     try {
       const { courseId } = ctx.query;
-      const homeworkList = await homeworkService.getHomeworkList(courseId);
+      const data = await homeworkService.getHomeworkList(courseId);
+      console.log('data', data)
       ctx.body = {
         code: 0,
-        homeworkList: homeworkList
+        homeworkList: data.homeworkList,
+        uploadDataList: data.uploadDataList
       }
     } catch (err) {
       ctx.status = 500;
@@ -36,6 +38,21 @@ export default {
       ctx.body = {
         code: 0,
         homeworkNameList: homeworkNameList
+      }
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
+  },
+
+  async getHomeworkName(ctx) {
+    try {
+      const { homeworkId } = ctx.query;
+      console.log('courseId', homeworkId);
+      const homeworkData = await homeworkService.getHomeworkName(homeworkId);
+      ctx.body = {
+        code: 0,
+        homeworkData: homeworkData
       }
     } catch (err) {
       ctx.status = 500;

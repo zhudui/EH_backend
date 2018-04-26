@@ -5,7 +5,8 @@ export default {
     try {
       const { body } = ctx.request;
       const userId = ctx.state.jwtData.data.id;
-      const data = await courseService.addCourse(body, userId);
+      const userRole = ctx.state.jwtData.data.role;
+      const data = await courseService.addCourse(body, userId, userRole);
       ctx.body = {
         code: 0,
         courseData: data
@@ -33,6 +34,7 @@ export default {
   async getCourseName(ctx) {
     try {
       const { courseId } = ctx.query;
+      console.log('courseId', courseId);
       const courseData = await courseService.getCourseName(courseId);
       ctx.body = {
         code: 0,

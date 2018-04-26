@@ -15,6 +15,9 @@ const uploadModel = sequelize.define('upload', {
   filePath: {
     type: Sequelize.STRING(256),
     allowNull: false
+  },
+  userRole: {
+    type: Sequelize.STRING(20)
   }
 }, {
   timestamps: false,

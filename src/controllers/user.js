@@ -1,10 +1,11 @@
 import userService from '../services/user'
-import { publicKey } from '../config'
+import { publicKey, System } from '../config'
 import jwt from 'jsonwebtoken'
 
 export default {
   async login(ctx) {
     try {
+      console.log('process.env.NODE_ENV', process.env.NODE_ENV);
       const { body } = ctx.request;
       const data = await userService.login(body.username, body.password);
       if (data.code === 0) { // 登陆成功
@@ -22,7 +23,8 @@ export default {
           }),
           {
             maxAge: 60 * 60 * 24 * 1000,
-            httpOnly: false
+            httpOnly: false,
+            domain: process.env.NODE_ENV === 'development' ? System.API_server_host : System.NGINX_server_host
           }
         );
         ctx.body = {
