@@ -16,5 +16,6 @@ router.post('/login', userController.login)
   .post('/addCourseUser', userController.addCourseUser)
   .delete('/userCourse', userController.deleteUserCourse)
   .post('/getUploadUserList', userController.getUploadUserList)
+  .post('/changePassword', userController.changePassword)
 
 export default router

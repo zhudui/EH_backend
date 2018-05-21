@@ -201,5 +201,16 @@ export default {
       ctx.status = 500;
       ctx.throw(new Error(err));
     }
+  },
+
+  async changePassword(ctx) {
+    try {
+      const { body } = ctx.request;
+      const data = await userService.changePassword(body);
+      ctx.body = data;
+    } catch (err) {
+      ctx.status = 500;
+      ctx.throw(new Error(err));
+    }
   }
 }

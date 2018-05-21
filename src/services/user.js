@@ -8,9 +8,10 @@ export default {
   async login(username, password) {
     try {
       let user = await userModel.find({ where: { username: username } });
+      console.log('await bcrypt.compare(user.password, password)', await bcrypt.compare(password, user.password));
       if (!user) {
         return { code: 1, msg: '用户不存在' };
-      } else if (await !bcrypt.compare(user.password, password)) {
+      } else if (!await bcrypt.compare(password, user.password)) {
         return { code: 1, msg: '密码不正确' };
       } else {
         return {
@@ -191,6 +192,33 @@ export default {
       }
     } catch (err) {
       throw new Error(err);
+    }
+  },
+
+  async changePassword(data) {
+    console.log('data', data);
+    const foundUser = await userModel.find({
+      where: {
+        id: data.userId
+      }
+    });
+    console.log('foundUser', foundUser);
+    if (!await bcrypt.compare(data.oldPassword, foundUser.password)) {
+      return {
+        code: 1,
+        msg: '旧密码错误，请重新输入'
+      }
+    } else {
+      await userModel.update({
+        password: await bcrypt.hash(data.newPassword, 5)
+      }, {
+        where: {
+          id: data.userId
+        }
+      });
+      return {
+        code: 0
+      }
     }
   }
 }
