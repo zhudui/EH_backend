@@ -20,6 +20,7 @@
     "koa-static2": "^0.1.8",
     "mysql2": "^1.5.3",
     "nodemailer": "^4.3.0",
+    "process": "^0.11.10",
     "promise-mysql": "^3.1.1",
     "require-directory": "^2.1.1",
     "sequelize": "^4.16.1",

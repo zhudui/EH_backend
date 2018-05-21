@@ -1,10 +1,8 @@
 import Koa2 from 'koa'
 import KoaBody from 'koa-body'
 import KoaStatic from 'koa-static2'
-import {
-  System as SystemConfig
-} from './config'
 import path from 'path'
+import process from 'process'
 
 // router
 import userRoutes from './routes/user'
@@ -68,8 +66,20 @@ if (env === 'development') { // logger
   })
 }
 
-app.listen(SystemConfig.API_server_port)
+let port = (function () {
+  if (typeof (process.argv[2]) !== 'undefined') { // 如果输入了端口号，则提取出来
+    if (isNaN(process.argv[2])) { // 如果端口号不为数字，提示格式错误
+      throw new Error('Please write a correct port number.');
+    } else { // 如果端口号输入正确，将其应用到端口
+      return process.argv[2]
+    }
+  } else { // 如果未输入端口号，则使用下面定义的默认端口
+    return 3000
+  }
+})();
 
-console.log('Now start API server on port ' + SystemConfig.API_server_port + '...')
+app.listen(port)
+
+console.log('Now start API server on port ' + port)
 
 export default app
